@@ -1,0 +1,30 @@
+body {
+  background-image: url("../img/fondo.jpg");
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+.container {
+  padding-top: 30px; }
+  .container table {
+    background: white;
+    font-size: 12px;
+    width: 40%;
+    margin: auto;
+    border: 1px solid black; }
+  .container .main-container {
+    width: 40%;
+    margin: auto;
+    margin-top: 70px; }
+    .container .main-container label {
+      background: yellow; }
+    .container .main-container input {
+      width: 70%; }
+    .container .main-container .result {
+      margin-top: 20px; }
+      .container .main-container .result p {
+        background: pink;
+        width: 100px; }
+      .container .main-container .result li {
+        background: floralwhite; }
+
+/*# sourceMappingURL=main.css.map */

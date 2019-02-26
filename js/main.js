@@ -1,0 +1,76 @@
+var arrayLts = [] //array donde se guardan las botellas utilizadas
+var numberLts;
+var cantLts = [7, 5, 3, 2, 1]; //número de litros que hay por botella
+var nameBottles = ["Jumbo", "Big", "Medium", "Small", "Petit"]
+var i=0;
+var faltan = 0;
+var fill = 0;
+
+function getLts(lts){
+	numberLts = $(lts).val() //Lee el número de litros a llenar
+	var fullFill = (numberLts/7).toFixed(2) //Solo toma las 2 primeras decimas
+	knowLts(fullFill)
+}
+
+
+function knowLts(ltsRest) {
+    if (ltsRest % 1 == 0) { //Si es entero 
+    	arrayLts.push(parseInt(ltsRest) + " botella(s) - tamaño  " + nameBottles[i]) //Agrega el numero de botellas que se usaran dependiendo de los litros
+    	printResult() //Lleva al final
+    } else { //Si es decimal
+    	if(ltsRest > 0 && ltsRest < 1){ //Si es mayor a 0 pero menor a 1 el. 0.32
+    		i = i + 1; //Se aumenta el i para recorrer los lts va de mayor a menor
+    		if(faltan == 0){ //Es porque no se ha llenado ningun litro
+    			var newresult = (numberLts/parseInt(cantLts[i])).toFixed(2) //se hace una nueva division 
+		       	knowLts(newresult)
+    		}
+    		else{
+    			var newresult = (faltan/parseInt(cantLts[i])).toFixed(2)
+		       	knowLts(newresult)
+    		}
+    	}
+    	else{
+    		var separador = "."; //encuentra el punto en la cadena
+	        var arregloDeSubCadenas = ltsRest.split(separador); //separa las cantidades, enteros y decimales
+	        arrayLts.push(arregloDeSubCadenas[0] + " botella(s) - tamaño  " + nameBottles[i]) //el entero son los lts llenados, las decimales lo que falta y se agrega al arreglo final
+	        var ltsFill = parseInt(arregloDeSubCadenas[0]) * parseInt(cantLts[i]); // se multiplica para saber cuantos litros llenamos
+	        fill = fill + ltsFill; //si ya se tenian llenados antes se suman con los nuevos
+	        faltan = numberLts - fill; //se hace la resta de los faltantes
+	        if(faltan > 0){ //Si aun faltan litros se vuelve a hacer la operación con los litros faltantes
+	        	i = i + 1;
+	        	var newDiv = (faltan/parseInt(cantLts[i])).toFixed(2)
+	        	knowLts(newDiv, i)
+	        }
+    	}
+    }
+}
+function printResult(){
+	$("#list-result").empty()
+	for(var j=0; j < arrayLts.length; j++){
+		var appendList = "<li>"+arrayLts[j]+"</li>"
+		$("#list-result").append(appendList)
+	}
+	$("#accept-first").addClass("hidden")
+	$("#litros").prop("disabled", true)
+	$(".result").removeClass("hidden")
+}
+
+function resetForm(){ 
+	$(".result").addClass("hidden");
+	$("#litros").prop("disabled", false);
+	$("#accept-first").removeClass("hidden");
+	arrayLts = [];
+	$("#litros").val("")
+	i = 0;
+	fill = 0;
+	faltan = 0;
+}
+
+function restrictToNumber(event) {
+    event = (event) ? event : window.event
+    var charCode = (event.which) ? event.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        event.preventDefault();
+    }
+    return true
+}
