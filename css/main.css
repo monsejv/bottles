@@ -11,8 +11,16 @@ body {
     width: 40%;
     margin: auto;
     border: 1px solid black; }
+  .container p {
+    background: yellow; }
+  .container .flex-nowrap {
+    margin-bottom: 10px; }
+    .container .flex-nowrap .input-group-prepend {
+      width: 40%; }
+      .container .flex-nowrap .input-group-prepend span {
+        width: 100%; }
   .container .main-container {
-    width: 40%;
+    width: 100%;
     margin: auto;
     margin-top: 70px; }
     .container .main-container label {
